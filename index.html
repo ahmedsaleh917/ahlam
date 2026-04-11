@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,6 +7,7 @@
     <title>صفاء الروح - مستشارك لتفسير الأحلام</title>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
     <style>
         :root {
             --main-green: #2d5a27;
@@ -19,7 +20,12 @@
             --glass-border: rgba(45, 90, 39, 0.2);
         }
 
-        * { box-sizing: border-box; transition: background 0.3s ease; -webkit-tap-highlight-color: transparent; }
+        * { 
+            box-sizing: border-box; 
+            transition: background 0.3s ease; 
+            -webkit-tap-highlight-color: transparent; 
+            text-align: center;
+        }
 
         html, body {
             margin: 0; padding: 0; height: 100%;
@@ -29,124 +35,71 @@
             direction: rtl;
         }
 
-        /* صفحة Offline */
+        /* 🚫 صفحة Offline */
         #offline-page {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--main-green) 0%, var(--dark-green) 100%);
             z-index: 9999;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; align-items: center;
             padding: 20px;
         }
+        #offline-page.show { display: flex; }
         
-        #offline-page.show {
-            display: flex;
-        }
-                .offline-container {
-            background: #ffffff;
-            border-radius: 30px;
-            padding: 50px 35px;
-            text-align: center;
-            max-width: 90%;
-            width: 380px;
+        .offline-container {            background: #ffffff; border-radius: 30px;
+            padding: 50px 35px; text-align: center;
+            max-width: 90%; width: 380px;
             box-shadow: 0 25px 80px rgba(0,0,0,0.4);
             border: 5px solid #d4af37;
             animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
-        
         .offline-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
             animation: pulse 3s ease-in-out infinite;
         }
-        
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.8; }
         }
-        
         .offline-icon-wrapper {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px; margin: 0 auto 25px;
             background: linear-gradient(135deg, var(--main-green), #3d7a37);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;            position: relative;
-            z-index: 1;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            position: relative; z-index: 1;
             box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
             animation: float 3s ease-in-out infinite;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .offline-icon {
-            color: white;
-            font-size: 2.5rem;
-        }
-        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .offline-icon { color: white; font-size: 2.5rem; }
         .offline-title {
-            color: var(--main-green);
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            line-height: 1.4;
+            color: var(--main-green); font-size: 1.6rem; font-weight: 900;
+            margin-bottom: 20px; position: relative; z-index: 1; line-height: 1.4;
         }
-        
         .offline-text {
-            color: #666;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 0;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
+            color: #666; font-size: 1.05rem; line-height: 1.8;
+            margin-bottom: 0; position: relative; z-index: 1; font-weight: 500;
         }
 
+        /* 🏗️ الحاوية الرئيسية */
         .صفاء-الروح-master-container {
             display: flex; flex-direction: column;
-            height: 100vh; width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--light-green);
+            height: 100vh; width: 100%; max-width: 600px;
+            margin: 0 auto; background: var(--light-green);
             position: relative;
         }
 
-        .صفاء-الروح-header {
-            padding: 15px 15px;
-            flex-shrink: 0;
-            background: #ffffff;
-            border-bottom: 2px solid var(--glass-border);            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            z-index: 10;
+        /* 📌 الهيدر الموحد */        .صفاء-الروح-header {
+            padding: 15px 15px; flex-shrink: 0;
+            background: #ffffff; border-bottom: 2px solid var(--glass-border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); z-index: 10;
         }
         .profile-wrapper {
             display: flex; align-items: center; gap: 12px;
@@ -173,6 +126,7 @@
         }
         .profile-status { color: #2ecc71; font-size: 13px; font-weight: bold; }
 
+        /* 💬 نافذة المحادثة */
         .صفاء-الروح-display-window {
             flex-grow: 1; padding: 20px 15px;
             overflow-y: auto; display: flex;
@@ -180,7 +134,6 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        
         .صفاء-الروح-welcome-card, .صفاء-الروح-response-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -189,20 +142,15 @@
             animation: slideUp 0.4s ease;
             max-width: 90%; align-self: flex-start;
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            text-align: right;
         }
-        
         .صفاء-الروح-response-card { 
-            border-right: 5px solid var(--main-green); 
-            border-radius: 20px 20px 20px 0;
+            border-right: 5px solid var(--main-green);             border-radius: 20px 20px 20px 0;
         }
         .صفاء-الروح-welcome-card p, .صفاء-الروح-response-card p {
-            color: var(--text-dark); 
-            font-size: 12px; 
-            font-weight: 800; 
-            line-height: 1.3; margin: 0;           
-            white-space: pre-wrap;
+            color: var(--text-dark); font-size: 12px; font-weight: 800;
+            line-height: 1.3; margin: 0; white-space: pre-wrap;
         }
-        
         .user-message {
             align-self: flex-end;
             background: #e3f2fd;
@@ -211,19 +159,16 @@
         }
         .user-message p { color: #0d47a1; }
 
+        /* 🎛️ لوحة التحكم */
         .صفاء-الروح-control-panel {
-            background: #ffffff;
-            padding: 12px 18px 20px; 
+            background: #ffffff; padding: 12px 18px 20px;
             border-top: 1px solid var(--glass-border);
-            flex-shrink: 0;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
+            flex-shrink: 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
         }
-
         #dreamInput {
-            width: 100%; height: 95px;
-            background: #fcfcfc;
-            border: 2px solid #eee;
-            border-radius: 18px; color: var(--text-dark); padding: 15px;
+            width: 100%; height: 95px; background: #fcfcfc;
+            border: 2px solid #eee; border-radius: 18px;
+            color: var(--text-dark); padding: 15px;
             font-size: 17px; font-family: var(--font-family);
             font-weight: 700; outline: none; resize: none;
             text-align: right;
@@ -232,29 +177,24 @@
 
         .صفاء-الروح-main-btn {
             width: 100%; padding: 16px; margin-top: 12px;
-            background: var(--main-green);
-            border: none; border-radius: 18px;
+            background: var(--main-green); border: none; border-radius: 18px;
             color: var(--text-light); font-size: 19px; font-weight: 800;
             cursor: pointer; box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
             transition: all 0.3s;
         }
-        
         .صفاء-الروح-main-btn:active {
-            transform: scale(0.98);
-            background: var(--dark-green);
+            transform: scale(0.98); background: var(--dark-green);
         }
         .صفاء-الروح-status {
             color: var(--main-green); text-align: center;
             font-weight: 800; margin-bottom: 10px; font-size: 15px;
             display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
         .loader-dots span {
             width: 8px; height: 8px; background: var(--main-green);
             display: inline-block; border-radius: 50%;
             animation: blink 1.4s infinite both;
-        }
-        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        }        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
         .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -271,42 +211,26 @@
         }
         .صفاء-الروح-branding span { color: var(--main-green); font-weight: 800; }
         
-        /* مؤشر الاتصال */
+        /* 🔔 مؤشر الاتصال */
         #connection-indicator {
-            display: none;
-            position: fixed;
-            top: 10px;
-            left: 50%;
+            display: none; position: fixed; top: 10px; left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, var(--main-green), #3d7a37);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            color: white; padding: 8px 20px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 700;
             box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
-            z-index: 1000;
-            animation: slideDown 0.3s ease;
+            z-index: 1000; animation: slideDown 0.3s ease;
         }
-
-        #connection-indicator.show {
-            display: block;
-        }
+        #connection-indicator.show { display: block; }
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
     </style>
 </head>
 <body>
 
-<!-- صفحة Offline -->
+<!-- 🚫 صفحة Offline -->
 <div id="offline-page">
     <div class="offline-container">
         <div class="offline-icon-wrapper">
@@ -317,12 +241,12 @@
     </div>
 </div>
 
-<!-- مؤشر الاتصال -->
+<!-- 🔔 مؤشر الاتصال -->
 <div id="connection-indicator">
-    <i class="fas fa-wifi"></i> تم استعادة الاتصال
-</div>
+    <i class="fas fa-wifi"></i> تم استعادة الاتصال</div>
 
 <div class="صفاء-الروح-master-container">
+    <!-- 📌 الهيدر الموحد -->
     <div class="صفاء-الروح-header">
         <div class="profile-wrapper">
             <div class="profile-img-container">
@@ -336,11 +260,14 @@
         </div>
     </div>
 
+    <!-- 💬 نافذة المحادثة -->
     <div class="صفاء-الروح-display-window" id="sabriDisplay">
         <div class="صفاء-الروح-welcome-card">
             <p>مرحباً بك.. أنا مفسرك الخاص. اسرد حلمك هنا بوضوح، وسأقوم بتحليل رموزه بعمق لك.</p>
         </div>
     </div>
+    
+    <!-- 🎛️ لوحة التحكم -->
     <div class="صفاء-الروح-control-panel">
         <div id="sabriTyping" class="صفاء-الروح-status" style="display: none;">
             صفاء الروح يفسر الآن...
@@ -360,37 +287,23 @@
 </div>
 
 <script>
+    // ⚙️ المتغيرات العامة
     let isUserScrolling = false;
     const displayWindow = document.getElementById('sabriDisplay');
     let isOnline = navigator.onLine;
 
-    // تسجيل Service Worker
-    if ('serviceWorker' in navigator) {
+    // 🔄 تسجيل Service Worker    if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            const swCode = `
-                self.addEventListener('install', e => {
-                    e.waitUntil(self.skipWaiting());
-                });
-                self.addEventListener('activate', e => {
-                    e.waitUntil(self.clients.claim());
-                });
-                self.addEventListener('fetch', e => {
-                    e.respondWith(
-                        fetch(e.request).catch(() => {
-                            return new Response('Offline');
-                        })
-                    );
-                });
-            `;
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            const swUrl = URL.createObjectURL(blob);
-            navigator.serviceWorker.register(swUrl).catch(() => {});
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('✅ SW registered:', reg.scope))
+                .catch(err => console.log('❌ SW failed:', err));
         });
     }
 
-    // التحقق من الاتصال
+    // 🌐 التحقق من الاتصال
     function checkConnection() {
-        if (!navigator.onLine) {            document.getElementById('offline-page').classList.add('show');
+        if (!navigator.onLine) {
+            document.getElementById('offline-page').classList.add('show');
         } else {
             document.getElementById('offline-page').classList.remove('show');
             showConnectionRestored();
@@ -400,23 +313,13 @@
     function showConnectionRestored() {
         const indicator = document.getElementById('connection-indicator');
         indicator.classList.add('show');
-        setTimeout(() => {
-            indicator.classList.remove('show');
-        }, 3000);
+        setTimeout(() => indicator.classList.remove('show'), 3000);
     }
 
-    // مراقبة حالة الاتصال
-    window.addEventListener('online', () => {
-        isOnline = true;
-        checkConnection();
-    });
+    window.addEventListener('online', () => { isOnline = true; checkConnection(); });
+    window.addEventListener('offline', () => { isOnline = false; checkConnection(); });
 
-    window.addEventListener('offline', () => {
-        isOnline = false;
-        checkConnection();
-    });
-
-    // كشف التفاعل اليدوي للسماح للمستخدم بالقراءة بحرية
+    // 📜 كشف التمرير اليدوي
     displayWindow.addEventListener('mousedown', () => isUserScrolling = true);
     displayWindow.addEventListener('touchstart', () => isUserScrolling = true);
     displayWindow.addEventListener('wheel', () => isUserScrolling = true);
@@ -438,8 +341,8 @@
             .trim();
     }
 
-    function isDream(text) {
-        const cleanText = text.trim();        const dreamWords = [
+    function isDream(text) {        const cleanText = text.trim();
+        const dreamWords = [
             "حلمت", "رأيت", "رئيت", "رؤية", "رويه", "رؤيا", "رؤيتا",
             "المنام", "منامي", "حلمي", "حلم", "الأحلام", "الاحلام",
             "شفت", "شاف", "شافت", "رأى", "رأت", "يرى", "تفسير",
@@ -451,29 +354,19 @@
         return hasKeyword || isDetailed;
     }
 
-    // منع الكتابة بالإنجليزية - حماية متعددة الطبقات
+    // 🔤 منع الكتابة بالإنجليزية
     function containsEnglish(text) {
         const englishPattern = /[a-zA-Z]{2,}/;
         const englishWords = ['i', 'my', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'];
         const words = text.toLowerCase().split(/\s+/);
-        
         if (englishPattern.test(text)) return true;
-        
         for (let word of words) {
             if (englishWords.includes(word) && word.length > 1) return true;
         }
-        
         return false;
     }
 
-    function blockEnglishInput(e) {
-        const value = e.target.value;
-        if (containsEnglish(value)) {
-            e.target.value = value.replace(/[a-zA-Z]/g, '');
-            alert('عذراً، يرجى الكتابة باللغة العربية فقط');
-        }
-    }
-
+    // 🚀 دالة التفسير الرئيسية
     async function startInterpretation() {
         const input = document.getElementById('dreamInput');
         const status = document.getElementById('sabriTyping');
@@ -481,14 +374,15 @@
 
         if (!text) return;
         
-        // التحقق من وجود إنجليزية
+        // التحقق من الإنجليزية
         if (containsEnglish(text)) {
             const card = document.createElement('div');
             card.className = 'صفاء-الروح-response-card';
             card.innerHTML = "<p>عذراً، يجب كتابة الحلم باللغة العربية فقط. الرجاء إعادة الكتابة بالعربية.</p>";
             displayWindow.appendChild(card);
             displayWindow.scrollTop = displayWindow.scrollHeight;
-            input.value = '';            return;
+            input.value = '';
+            return;
         }
         
         if (!isDream(text)) {
@@ -496,10 +390,10 @@
             card.className = 'صفاء-الروح-response-card';
             card.innerHTML = "<p>أعتذر، لا يسمح لي بالنقاش، وظيفتي تفسير الأحلام فقط.</p>";
             displayWindow.appendChild(card);
-            displayWindow.scrollTop = displayWindow.scrollHeight;
-            return;
+            displayWindow.scrollTop = displayWindow.scrollHeight;            return;
         }
 
+        // رسالة المستخدم
         const userCard = document.createElement('div');
         userCard.className = 'صفاء-الروح-welcome-card user-message';
         userCard.innerHTML = `<p>${text}</p>`;
@@ -512,7 +406,9 @@
         displayWindow.scrollTop = displayWindow.scrollHeight;
 
         try {
-            const gender = detectGender(text); 
+            const gender = detectGender(text);
+            
+            // ⚠️ الـ PROMPT الأصلي - محفوظ حرفياً دون أي تعديل ⚠️
             const promptInstruction = `
 أنت "صفاء الروح"، مفسر أحلام متخصص خبير في الرموز المنامية وفق مدرسة ابن سيرين والنابلسي.
 انت خبير وفطن وتفهم ولديك ذكاء خارق وفصاحه وبلاغه وتجيد الرد بافضل اسلوب ركز على الحلم 
@@ -543,8 +439,7 @@
 - ممنوع تكرار الكلام. 
 - ممنوع الخروج عن تفسير الأحلام. 
 - ممنوع تجاوز 15 سطر. 
-- الرد يجب أن يكون عربي واضح ومفهوم 100%. 
-- ممنوع استخدام الرموز الإنجليزية أو الأحرف اللاتينية.
+- الرد يجب أن يكون عربي واضح ومفهوم 100%. - ممنوع استخدام الرموز الإنجليزية أو الأحرف اللاتينية.
 
 🧠 سلوكك: 
 - إذا لم يكن النص حلم ← تجاهله واعتذر. 
@@ -589,13 +484,11 @@
 إذا لم يكن النص حلم: اكتب فقط: "أعتذر، لا يسمح لي بالنقاش، وظيفتي تفسير الأحلام فقط." 
 `;
 
+            // 📡 طلب التفسير من API
             const response = await fetch("https://text.pollinations.ai/prompt/" + encodeURIComponent(promptInstruction + text));
             let result = await response.text();
 
-            result = cleanResponse(result);
-            result = result.replace(/(\d-)/g, "\n\n$1");
-            
-            // تنظيف إضافي لأي أحرف إنجليزية متبقية
+            result = cleanResponse(result);            result = result.replace(/(\d-)/g, "\n\n$1");
             result = result.replace(/[a-zA-Z]/g, '');
 
             status.style.display = 'none';
@@ -604,6 +497,7 @@
             card.innerHTML = '<p id="typingTarget"></p>';
             displayWindow.appendChild(card);
             
+            // ✍️ تأثير الكتابة التلقائية
             let i = 0;
             const target = card.querySelector('#typingTarget');
             
@@ -625,17 +519,16 @@
         }
     }
     
-    // منع الكتابة بالإنجليزية - حماية قوية
+    // 🔤 حماية إدخال العربية
     const dreamInput = document.getElementById('dreamInput');
     dreamInput.addEventListener('input', function(e) {
         const originalValue = this.value;
         const cleanedValue = originalValue.replace(/[a-zA-Z]/g, '');
-        
         if (originalValue !== cleanedValue) {
             this.value = cleanedValue;
-            // تلميح سريع
             const btn = document.querySelector('.صفاء-الروح-main-btn');
-            const originalText = btn.textContent;            btn.textContent = '⚠️ العربية فقط';
+            const originalText = btn.textContent;
+            btn.textContent = '⚠️ العربية فقط';
             btn.style.background = '#e74c3c';
             setTimeout(() => {
                 btn.textContent = originalText;
@@ -644,9 +537,7 @@
         }
     });
     
-    // منع اللصق بالإنجليزية
-    dreamInput.addEventListener('paste', function(e) {
-        setTimeout(() => {
+    dreamInput.addEventListener('paste', function(e) {        setTimeout(() => {
             const cleaned = this.value.replace(/[a-zA-Z]/g, '');
             if (this.value !== cleaned) {
                 this.value = cleaned;
@@ -655,7 +546,7 @@
         }, 10);
     });
 
-    // التحقق عند التحميل
+    // 🚀 بدء التطبيق
     window.addEventListener('load', () => {
         checkConnection();
     });
