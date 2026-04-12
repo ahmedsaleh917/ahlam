@@ -3,420 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#2d5a27">
+    <meta name="theme-color" content="#111111">
     <title>صفاء الروح - مستشارك لتفسير الأحلام</title>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
     <style>
         :root {
-            --main-green: #2d5a27;
-            --dark-green: #1a3a16;
-            --light-green: #dcedc8;
-            --text-dark: #1a1a1a;
-            --text-light: #ffffff;
+            --gold: #FFD700;
+            --dark-bg: #111;
+            --card-bg: #1b1b1b;
+            --card-bg-2: #262626;
+            --text-white: #ffffff;
             --font-family: 'Almarai', sans-serif;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(45, 90, 39, 0.2);
-        }
-
-        * { 
-            box-sizing: border-box; 
-            transition: background 0.3s ease; 
-            -webkit-tap-highlight-color: transparent; 
-            text-align: center;
         }
 
         html, body {
             margin: 0; padding: 0; height: 100%;
-            background-color: var(--light-green);
+            background: var(--dark-bg); font-family: var(--font-family);
             overflow: hidden;
-            font-family: var(--font-family);
-            direction: rtl;
         }
 
-        /* 🚫 صفحة Offline */
-        #offline-page {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--main-green) 0%, var(--dark-green) 100%);
-            z-index: 9999;
-            justify-content: center; align-items: center;
-            padding: 20px;
-        }
-        #offline-page.show { display: flex; }
-        
-        .offline-container {            background: #ffffff; border-radius: 30px;
-            padding: 50px 35px; text-align: center;
-            max-width: 90%; width: 380px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
-            border: 5px solid #d4af37;
-            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden;
-        }
-        .offline-container::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-        .offline-icon-wrapper {
-            width: 100px; height: 100px; margin: 0 auto 25px;
-            background: linear-gradient(135deg, var(--main-green), #3d7a37);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            position: relative; z-index: 1;
-            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .offline-icon { color: white; font-size: 2.5rem; }
-        .offline-title {
-            color: var(--main-green); font-size: 1.6rem; font-weight: 900;
-            margin-bottom: 20px; position: relative; z-index: 1; line-height: 1.4;
-        }
-        .offline-text {
-            color: #666; font-size: 1.05rem; line-height: 1.8;
-            margin-bottom: 0; position: relative; z-index: 1; font-weight: 500;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; text-align: center; }
 
-        /* 🏗️ الحاوية الرئيسية */
         .صفاء-الروح-master-container {
-            display: flex; flex-direction: column;
-            height: 100vh; width: 100%; max-width: 600px;
-            margin: 0 auto; background: var(--light-green);
-            position: relative;
+            display: flex; flex-direction: column; height: 100vh;
+            max-width: 600px; margin: auto; background: var(--dark-bg);
         }
 
-        /* 📌 الهيدر الموحد */        .صفاء-الروح-header {
-            padding: 15px 15px; flex-shrink: 0;
-            background: #ffffff; border-bottom: 2px solid var(--glass-border);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); z-index: 10;
+        .صفاء-الروح-header {
+            padding: 20px; background: linear-gradient(145deg,#1c1c1c,#2a2a2a);
+            border-bottom: 1px solid rgba(255,215,0,0.2); flex-shrink: 0;
         }
-        .profile-wrapper {
-            display: flex; align-items: center; gap: 12px;
-            justify-content: center;
-        }
+
+        /* الإطار الدائري بدل التوهج */
         .profile-img-container {
-            position: relative; width: 65px; height: 65px;
+            width: 60px; height: 60px; border-radius: 50%;
+            border: 2px solid var(--gold); display: flex;
+            align-items: center; justify-content: center; position: relative;
         }
-        .profile-img-container img {
-            width: 100%; height: 100%; border-radius: 50%;
-            border: 3px solid var(--main-green);
-            object-fit: cover;
-            box-shadow: 0 2px 10px rgba(45, 90, 39, 0.2);
-        }
+
+        .profile-img-container i { color: var(--gold); font-size: 28px; }
+
         .online-indicator {
-            position: absolute; bottom: 3px; right: 3px;
-            width: 14px; height: 14px; background: #2ecc71;
-            border-radius: 50%; border: 2px solid #ffffff;
-            animation: pulse-indicator 1.8s infinite;
+            position: absolute; bottom: 2px; right: 2px;
+            width: 12px; height: 12px; background: #2ecc71;
+            border-radius: 50%; border: 2px solid #1a1a1a;
         }
-        .profile-name {
-            display: block; color: var(--main-green);
-            font-weight: 800; font-size: 22px;
-        }
-        .profile-status { color: #2ecc71; font-size: 13px; font-weight: bold; }
 
-        /* 💬 نافذة المحادثة */
+        .profile-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .profile-name { color: var(--gold); font-weight: 800; font-size: 20px; }
+        .profile-status { color: #2ecc71; font-size: 12px; display: block; }
+
         .صفاء-الروح-display-window {
-            flex-grow: 1; padding: 20px 15px;
-            overflow-y: auto; display: flex;
-            flex-direction: column; gap: 18px;
+            flex: 1; padding: 15px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 15px;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
-        .صفاء-الروح-welcome-card, .صفاء-الروح-response-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 15px 18px; border-radius: 20px 20px 0 20px;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.4s ease;
-            max-width: 90%; align-self: flex-start;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            text-align: right;
-        }
-        .صفاء-الروح-response-card { 
-            border-right: 5px solid var(--main-green);             border-radius: 20px 20px 20px 0;
-        }
-        .صفاء-الروح-welcome-card p, .صفاء-الروح-response-card p {
-            color: var(--text-dark); font-size: 12px; font-weight: 800;
-            line-height: 1.3; margin: 0; white-space: pre-wrap;
-        }
-        .user-message {
-            align-self: flex-end;
-            background: #e3f2fd;
-            border-left: 5px solid #1e88e5;
-            border-radius: 20px 20px 20px 0;
-        }
-        .user-message p { color: #0d47a1; }
 
-        /* 🎛️ لوحة التحكم */
+        /* رد صفاء الروح - لون الخط أبيض */
+        .صفاء-الروح-response-card {
+            background: linear-gradient(145deg,var(--card-bg),var(--card-bg-2));
+            border-radius: 20px; padding: 15px; max-width: 90%;
+            text-align: right; position: relative; align-self: flex-start;
+            border-right: 4px solid var(--gold); color: var(--text-white);
+            animation: msgIn 0.35s ease;
+        }
+
+        .صفاء-الروح-response-card p { color: var(--text-white); line-height: 1.8; margin: 0; font-size: 15px; }
+
+        .user-message {
+            align-self: flex-end; background: linear-gradient(145deg,#1e3a5f,#27496d);
+            color: #fff; border-left: 4px solid #4aa3ff; border-right: none;
+            border-radius: 20px; padding: 15px; max-width: 85%;
+        }
+
+        .bot-icon {
+            position: absolute; top: -12px; left: -12px;
+            background: #222; border: 1px solid var(--gold);
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .bot-icon i { color: var(--gold); font-size: 12px; }
+
         .صفاء-الروح-control-panel {
-            background: #ffffff; padding: 12px 18px 20px;
-            border-top: 1px solid var(--glass-border);
-            flex-shrink: 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
+            background: #1a1a1a; padding: 15px;
+            border-top: 1px solid rgba(255,215,0,0.1);
         }
+
         #dreamInput {
-            width: 100%; height: 95px; background: #fcfcfc;
-            border: 2px solid #eee; border-radius: 18px;
-            color: var(--text-dark); padding: 15px;
-            font-size: 17px; font-family: var(--font-family);
-            font-weight: 700; outline: none; resize: none;
-            text-align: right;
+            width: 100%; height: 80px; background: #111;
+            border: 1px solid #333; border-radius: 15px;
+            color: #fff; padding: 12px; font-size: 15px;
+            outline: none; resize: none; font-family: var(--font-family);
         }
-        #dreamInput:focus { border-color: var(--main-green); background: #ffffff; }
 
         .صفاء-الروح-main-btn {
-            width: 100%; padding: 16px; margin-top: 12px;
-            background: var(--main-green); border: none; border-radius: 18px;
-            color: var(--text-light); font-size: 19px; font-weight: 800;
-            cursor: pointer; box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
-            transition: all 0.3s;
-        }
-        .صفاء-الروح-main-btn:active {
-            transform: scale(0.98); background: var(--dark-green);
-        }
-        .صفاء-الروح-status {
-            color: var(--main-green); text-align: center;
-            font-weight: 800; margin-bottom: 10px; font-size: 15px;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .loader-dots span {
-            width: 8px; height: 8px; background: var(--main-green);
-            display: inline-block; border-radius: 50%;
-            animation: blink 1.4s infinite both;
-        }        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
-        @keyframes pulse-indicator {
-            0% { transform: scale(1); box-shadow: 0 0 5px rgba(46, 204, 113, 0.4); }
-            50% { transform: scale(1.15); box-shadow: 0 0 15px rgba(46, 204, 113, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 5px rgba(46, 204, 113, 0.4); }
+            width: 100%; margin-top: 10px; padding: 14px;
+            border-radius: 15px; border: none; font-weight: bold;
+            background: linear-gradient(145deg,#FFD700,#caa500);
+            cursor: pointer; font-family: var(--font-family); color: #000;
         }
 
-        .صفاء-الروح-branding {
-            text-align: center; margin-top: 15px;
-            color: rgba(0,0,0,0.3); font-size: 11px;
-        }
-        .صفاء-الروح-branding span { color: var(--main-green); font-weight: 800; }
+        .صفاء-الروح-status { color: var(--gold); margin-bottom: 10px; display: none; gap: 8px; justify-content: center; align-items: center; font-size: 14px; }
         
-        /* 🔔 مؤشر الاتصال */
-        #connection-indicator {
-            display: none; position: fixed; top: 10px; left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--main-green), #3d7a37);
-            color: white; padding: 8px 20px; border-radius: 20px;
-            font-size: 0.85rem; font-weight: 700;
-            box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
-            z-index: 1000; animation: slideDown 0.3s ease;
-        }
-        #connection-indicator.show { display: block; }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .صفاء-الروح-branding { text-align: center; margin-top: 10px; color: rgba(255,255,255,0.3); font-size: 10px; }
+        .صفاء-الروح-branding span { color: var(--gold); }
     </style>
 </head>
 <body>
 
-<!-- 🚫 صفحة Offline -->
-<div id="offline-page">
-    <div class="offline-container">
-        <div class="offline-icon-wrapper">
-            <i class="fas fa-wifi-slash offline-icon"></i>
-        </div>
-        <h2 class="offline-title">عذراً، أنت لست متصلاً بالإنترنت</h2>
-        <p class="offline-text">تحتاج إلى الاتصال بالإنترنت لمتابعة رحلتك التعليمية</p>
-    </div>
-</div>
-
-<!-- 🔔 مؤشر الاتصال -->
-<div id="connection-indicator">
-    <i class="fas fa-wifi"></i> تم استعادة الاتصال</div>
-
-<div class="صفاء-الروح-master-container">
-    <!-- 📌 الهيدر الموحد -->
-    <div class="صفاء-الروح-header">
-        <div class="profile-wrapper">
-            <div class="profile-img-container">
-                <img src="https://i.postimg.cc/zGSvxgCn/1775323811617.png" alt="صفاء الروح">
-                <div class="online-indicator"></div>
-            </div>
-            <div class="profile-info">
-                <span class="profile-name">صفاء الروح</span>
-                <span class="profile-status">متصل الآن</span>
+    <div class="صفاء-الروح-master-container">
+        <div class="صفاء-الروح-header">
+            <div class="profile-wrapper">
+                <div class="profile-img-container">
+                    <i class="fas fa-user"></i>
+                    <div class="online-indicator"></div>
+                </div>
+                <div class="profile-info">
+                    <span class="profile-name">صفاء الروح</span>
+                    <span class="profile-status">متصل الآن</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 💬 نافذة المحادثة -->
-    <div class="صفاء-الروح-display-window" id="sabriDisplay">
-        <div class="صفاء-الروح-welcome-card">
-            <p>مرحباً بك.. أنا مفسرك الخاص. اسرد حلمك هنا بوضوح، وسأقوم بتحليل رموزه بعمق لك.</p>
+        <div class="صفاء-الروح-display-window" id="sabriDisplay">
+            <div class="صفاء-الروح-response-card" style="border-right: 4px solid #444;">
+                <p>مرحباً بك.. أنا مفسرك الخاص. اسرد حلمك هنا بوضوح، وسأقوم بتحليل رموزه بعمق لك.</p>
+            </div>
+        </div>
+
+        <div class="صفاء-الروح-control-panel">
+            <div id="sabriTyping" class="صفاء-الروح-status">
+                <i class="fas fa-pen-fancy"></i> صفاء الروح يفسر الآن...
+            </div>
+            <textarea id="dreamInput" placeholder="اكتب حلمك هنا بعمق..."></textarea>
+            <button class="صفاء-الروح-main-btn" onclick="startInterpretation()">إرسال الحلم للتفسير</button>
+            <div class="صفاء-الروح-branding">هوية بصرية وبرمجة <span>sabriFX &copy; 2026</span></div>
         </div>
     </div>
-    
-    <!-- 🎛️ لوحة التحكم -->
-    <div class="صفاء-الروح-control-panel">
-        <div id="sabriTyping" class="صفاء-الروح-status" style="display: none;">
-            صفاء الروح يفسر الآن...
-            <div class="loader-dots"><span></span><span></span><span></span></div>
-        </div>
-        
-        <textarea id="dreamInput" placeholder="اكتب حلمك هنا بعمق..."></textarea>
-        
-        <button class="صفاء-الروح-main-btn" onclick="startInterpretation()">
-            إرسال الحلم للتفسير
-        </button>
 
-        <div class="صفاء-الروح-branding">
-            هوية بصرية وبرمجة <span>sabriFX &copy; 2026</span>
-        </div>
-    </div>
-</div>
+    <script>
+        const displayWindow = document.getElementById('sabriDisplay');
+        const dreamInput = document.getElementById('dreamInput');
+        const typingStatus = document.getElementById('sabriTyping');
 
-<script>
-    // ⚙️ المتغيرات العامة
-    let isUserScrolling = false;
-    const displayWindow = document.getElementById('sabriDisplay');
-    let isOnline = navigator.onLine;
+        async function startInterpretation() {
+            const text = dreamInput.value.trim();
+            if (!text) return;
 
-    // 🔄 تسجيل Service Worker    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('✅ SW registered:', reg.scope))
-                .catch(err => console.log('❌ SW failed:', err));
-        });
-    }
-
-    // 🌐 التحقق من الاتصال
-    function checkConnection() {
-        if (!navigator.onLine) {
-            document.getElementById('offline-page').classList.add('show');
-        } else {
-            document.getElementById('offline-page').classList.remove('show');
-            showConnectionRestored();
-        }
-    }
-
-    function showConnectionRestored() {
-        const indicator = document.getElementById('connection-indicator');
-        indicator.classList.add('show');
-        setTimeout(() => indicator.classList.remove('show'), 3000);
-    }
-
-    window.addEventListener('online', () => { isOnline = true; checkConnection(); });
-    window.addEventListener('offline', () => { isOnline = false; checkConnection(); });
-
-    // 📜 كشف التمرير اليدوي
-    displayWindow.addEventListener('mousedown', () => isUserScrolling = true);
-    displayWindow.addEventListener('touchstart', () => isUserScrolling = true);
-    displayWindow.addEventListener('wheel', () => isUserScrolling = true);
-
-    function detectGender(text) {
-        const femaleWords = ["حلمت اني حامل", "حامل", "زوجي", "كنت عروس", "ولدت", "بنت", "انا انثى", "فتاة", "امرأة"];
-        for (let word of femaleWords) {
-            if (text.includes(word)) return "female";
-        }
-        return "male";
-    }
-
-    function cleanResponse(text) {
-        return text
-            .replace(/أنا ذكاء اصطناعي/gi, "")
-            .replace(/كنموذج لغوي/gi, "")
-            .replace(/لا أستطيع/gi, "")
-            .replace(/\n{2,}/g, "\n")
-            .trim();
-    }
-
-    function isDream(text) {        const cleanText = text.trim();
-        const dreamWords = [
-            "حلمت", "رأيت", "رئيت", "رؤية", "رويه", "رؤيا", "رؤيتا",
-            "المنام", "منامي", "حلمي", "حلم", "الأحلام", "الاحلام",
-            "شفت", "شاف", "شافت", "رأى", "رأت", "يرى", "تفسير",
-            "كابوس", "رؤي", "بمنامي", "بمنام", "بالمنام", "شوفت", "شفتني",
-            "رىيت", "حلم", "منام"
-        ];
-        const hasKeyword = dreamWords.some(word => cleanText.includes(word));
-        const isDetailed = cleanText.length > 35;
-        return hasKeyword || isDetailed;
-    }
-
-    // 🔤 منع الكتابة بالإنجليزية
-    function containsEnglish(text) {
-        const englishPattern = /[a-zA-Z]{2,}/;
-        const englishWords = ['i', 'my', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'];
-        const words = text.toLowerCase().split(/\s+/);
-        if (englishPattern.test(text)) return true;
-        for (let word of words) {
-            if (englishWords.includes(word) && word.length > 1) return true;
-        }
-        return false;
-    }
-
-    // 🚀 دالة التفسير الرئيسية
-    async function startInterpretation() {
-        const input = document.getElementById('dreamInput');
-        const status = document.getElementById('sabriTyping');
-        const text = input.value.trim();
-
-        if (!text) return;
-        
-        // التحقق من الإنجليزية
-        if (containsEnglish(text)) {
-            const card = document.createElement('div');
-            card.className = 'صفاء-الروح-response-card';
-            card.innerHTML = "<p>عذراً، يجب كتابة الحلم باللغة العربية فقط. الرجاء إعادة الكتابة بالعربية.</p>";
-            displayWindow.appendChild(card);
-            displayWindow.scrollTop = displayWindow.scrollHeight;
-            input.value = '';
-            return;
-        }
-        
-        if (!isDream(text)) {
-            const card = document.createElement('div');
-            card.className = 'صفاء-الروح-response-card';
-            card.innerHTML = "<p>أعتذر، لا يسمح لي بالنقاش، وظيفتي تفسير الأحلام فقط.</p>";
-            displayWindow.appendChild(card);
-            displayWindow.scrollTop = displayWindow.scrollHeight;            return;
-        }
-
-        // رسالة المستخدم
-        const userCard = document.createElement('div');
-        userCard.className = 'صفاء-الروح-welcome-card user-message';
-        userCard.innerHTML = `<p>${text}</p>`;
-        displayWindow.appendChild(userCard);
-
-        isUserScrolling = false;
-        input.blur();
-        status.style.display = 'flex';
-        input.value = '';
-        displayWindow.scrollTop = displayWindow.scrollHeight;
-
-        try {
-            const gender = detectGender(text);
+            // إظهار رسالة المستخدم
+            const userCard = document.createElement('div');
+            userCard.className = 'user-message';
+            userCard.innerHTML = `<p>${text}</p>`;
+            displayWindow.appendChild(userCard);
             
-            // ⚠️ الـ PROMPT الأصلي - محفوظ حرفياً دون أي تعديل ⚠️
-            const promptInstruction = `
-أنت "صفاء الروح"، مفسر أحلام متخصص خبير في الرموز المنامية وفق مدرسة ابن سيرين والنابلسي.
-انت خبير وفطن وتفهم ولديك ذكاء خارق وفصاحه وبلاغه وتجيد الرد بافضل اسلوب ركز على الحلم 
-افهمه بعمق ودقه واعطه تفسير مفصلاً كافياً 
-دون تشتيت للمتلقي مجالك هو تفسير الاحلام فقط 
-وانت خبير في هذا المجال استند الى مايقبله العقل والمنطق وقدم تفسير ذكي عقلاني منطقي  
-انت تجيد وتستوعب وتفهم اللهجات العربيه العاميه
-وتحسن التعامل معها 
+            dreamInput.value = '';
+            displayWindow.scrollTop = displayWindow.scrollHeight;
+
+            // تشغيل حالة "جاري الكتابة"
+            typingStatus.style.display = 'flex';
+
+            try {
+                const gender = text.includes("امي") || text.includes("اختي") || text.includes("بنت") ? "female" : "male";
+                
+                // الـ PROMPT المحمي (بدون تغيير)
+                const promptInstruction = `
+أنت "صفاء الروح"، مفسر أحلام متخصص خبير في الرموز المنامية وفق مدرسة ابن سيرين والنابلسي.  
+انت خبير وفطن وتفهم ولديك ذكاء خارق وفصاحه وبلاغه وتجيد الرد بافضل اسلوب ركز على الحلم   
+افهمه بعمق ودقه واعطه تفسير مفصلاً كافياً   
+دون تشتيت للمتلقي مجالك هو تفسير الاحلام فقط   
+وانت خبير في هذا المجال استند الى مايقبله العقل والمنطق وقدم تفسير ذكي عقلاني منطقي    
+انت تجيد وتستوعب وتفهم اللهجات العربيه العاميه  
+وتحسن التعامل معها   
 انت ترد وتكتب بدقه واملاء ممتاز جدا لا يخطاء ابدا
 
 ⚠️ قانون اللغة الصارم:
@@ -428,128 +188,95 @@
 🧠 بروتوكول التعامل مع الأحلام (العنف والملاحقة):
 - إذا تضمن الحلم (ضرب، قتل، طرد، حيوانات مفترسة، شجار)، تعامل معها كـ "رموز نفسية" فقط.
 - ممنوع تحويل الحلم إلى قضية إنسانية أو أخلاقية أو وعظية.
-- وظيفتك التفسير وليس التقييم الأخلاقي. (مثال: ضرب الشخص في المنام قد يعني نفعاً يصيبه من الضارب، وليس جريمة). 
--استخدم افضل مالديك من ذكاء لفهم سرد المستخدمين وتحسين الرد عليهم بافضل واجود ذكاء واسلوب
--لا تكتب ولا تتحدث باي لغه غير اللغه العربيه مطلقاً
--اهتم بمشاعر المستفسر وفسر له بدقه وبافضل اسلوب ممكن
+- وظيفتك التفسير وليس التقييم الأخلاقي. (مثال: ضرب الشخص في المنام قد يعني نفعاً يصيبه من الضارب، وليس جريمة).   
+-استخدم افضل مالديك من ذكاء لفهم سرد المستخدمين وتحسين الرد عليهم بافضل واجود ذكاء واسلوب  
+-لا تكتب ولا تتحدث باي لغه غير اللغه العربيه مطلقاً  
+-اهتم بمشاعر المستفسر وفسر له بدقه وبافضل اسلوب ممكن  
 -كن دقيقاً جداً في التفسير واستخدم خبرتك الواسعة
-🚫 قواعد صارمة جداً (يمنع كسرها): 
-- ممنوع كتابة أي كلمة إنجليزية إطلاقاً. 
-- ممنوع كتابة تعليمات أو شرح أو تفكير داخلي. 
-- ممنوع تكرار الكلام. 
-- ممنوع الخروج عن تفسير الأحلام. 
-- ممنوع تجاوز 15 سطر. 
+🚫 قواعد صارمة جداً (يمنع كسرها):   - ممنوع كتابة أي كلمة إنجليزية إطلاقاً.   
+- ممنوع كتابة تعليمات أو شرح أو تفكير داخلي.   
+- ممنوع تكرار الكلام.   
+- ممنوع الخروج عن تفسير الأحلام.   
+- ممنوع تجاوز 15 سطر.   
 - الرد يجب أن يكون عربي واضح ومفهوم 100%. - ممنوع استخدام الرموز الإنجليزية أو الأحرف اللاتينية.
 
-🧠 سلوكك: 
-- إذا لم يكن النص حلم ← تجاهله واعتذر. 
-- إذا بدأ المستخدم بـ "السلام عليكم" ← ابدأ الرد بـ: "وعليكم السلام ورحمة الله وبركاته" 
-- كن إنساني ومتفهم، لا تخيف ولا تبالغ. 
--افهم الحلم وكن فطناً لما يقصده المستفسر
--استخدم ذكائك الخارق في فهم الحلم والمعنى وتعامل بذكاء 
-وفقاً لذالك 
--ميز بين الانثى والرجل والكبير والصغير من خلال كلامه وتعامل مع الكبير بتوقير واحترام اكثر  
+🧠 سلوكك:   
+- إذا لم يكن النص حلم ← تجاهله واعتذر.   
+- إذا بدأ المستخدم بـ "السلام عليكم" ← ابدأ الرد بـ: "وعليكم السلام ورحمة الله وبركاته"   
+- كن إنساني ومتفهم، لا تخيف ولا تبالغ.   
+-افهم الحلم وكن فطناً لما يقصده المستفسر  
+-استخدم ذكائك الخارق في فهم الحلم والمعنى وتعامل بذكاء   
+وفقاً لذالك   
+-ميز بين الانثى والرجل والكبير والصغير من خلال كلامه وتعامل مع الكبير بتوقير واحترام اكثر    
 -استخدم الحكمة والعمق في التفسير
 
-📌 فهم الرموز (استخدم ذكاءك لتوسيع الفهم): 
-- الثعبان: عدو أو شخص خبيث أو شهوة
-- الكلب: شخص مؤذٍ أو ضعيف أو عدو ضعيف
-- الماء: مشاعر أو حياة أو رزق أو علم
-- الموت: تغير أو نهاية مرحلة أو طول عمر
-- الهروب: تجنب مشكلة أو خوف
-- الخوف: قلق داخلي أو تحذير
-- البيت: النفس أو الأسرة أو الحياة
-- السيارة: المسار الحياتي أو التقدم
-- المال: قوة أو مسؤولية أو فتنة
-- الشعر: الجمال أو القوة أو الستر
-- استخدم ذكاءك لفهم الرموز حسب السياق
+📌 فهم الرموز (استخدم ذكاءك لتوسيع الفهم):   
+- الثعبان: عدو أو شخص خبيث أو شهوة  
+- الكلب: شخص مؤذٍ أو ضعيف أو عدو ضعيف  
+- الماء: مشاعر أو حياة أو رزق أو علم  
+- الموت: تغير أو نهاية مرحلة أو طول عمر  
+- الهروب: تجنب مشكلة أو خوف  
+- الخوف: قلق داخلي أو تحذير  
+- البيت: النفس أو الأسرة أو الحياة  
+- السيارة: المسار الحياتي أو التقدم  
+- المال: قوة أو مسؤولية أو فتنة  
+- الشعر: الجمال أو القوة أو الستر  
+- استخدم ذكائك لفهم الرموز حسب السياق
 
-🧾 طريقة الرد (إلزامي): 
-ابدأ بـ: ${gender === "female" ? "مرحبا يا أختي" : "مرحبا يا أخي"} 
+🧾 طريقة الرد (إلزامي):   
+ابدأ بـ: ${gender === "female" ? "مرحبا يا أختي" : "مرحبا يا أخي"}   
 
-ثم اكتب فقط 4 نقاط: 
-1- تفسير الرمز الرئيسي بشكل واضح وعميق. 
-2- ماذا يعني في واقعك الحالي. 
-3- هل هو تحذير أو رسالة أو بشارة. 
+ثم اكتب فقط 4 نقاط:   
+1- تفسير الرمز الرئيسي بشكل واضح وعميق.   
+2- ماذا يعني في واقعك الحالي.   
+3- هل هو تحذير أو رسالة أو بشارة.   
 4- نصيحة عملية حول الموضوع أو الحلم نفسه تفيد صاحب الحلم.
 
-📏 الشروط النهائية: 
-- كل نقطة سطر مستقل. 
-- عدد الأسطر من 5 إلى 15 فقط. 
-- لا تكتب أي شيء خارج هذا التنسيق. 
-- لا تضف مقدمة أو خاتمة. 
-- استخدم العربية الفصحى السليمة فقط.
+📏 الشروط النهائية:   
+- كل نقطة سطر مستقل.   
+- عدد الأسطر من 5 إلى 15 فقط.   
+- لا تكتب أي شيء خارج هذا التنسيق.   
+- لا تضف مقدمة أو خاتمة.   
+- استخدم العربية الفصحى السليمة فقط.  
 - تأكد من خلو الرد تماماً من الإنجليزية.
 
-إذا لم يكن النص حلم: اكتب فقط: "أعتذر، لا يسمح لي بالنقاش، وظيفتي تفسير الأحلام فقط." 
+إذا لم يكن النص حلم: اكتب فقط: "أعتذر، لا يسمح لي بالنقاش، وظيفتي تفسير الأحلام فقط."   
 `;
 
-            // 📡 طلب التفسير من API
-            const response = await fetch("https://text.pollinations.ai/prompt/" + encodeURIComponent(promptInstruction + text));
-            let result = await response.text();
+                // طلب البيانات من الـ API
+                const response = await fetch("https://text.pollinations.ai/prompt/" + encodeURIComponent(promptInstruction + " حلمي هو: " + text));
+                const resultText = await response.text();
 
-            result = cleanResponse(result);            result = result.replace(/(\d-)/g, "\n\n$1");
-            result = result.replace(/[a-zA-Z]/g, '');
+                // انتظار 8 ثوانٍ كما طلبت
+                setTimeout(() => {
+                    typingStatus.style.display = 'none';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'صفاء-الروح-response-card';
+                    card.innerHTML = '<div class="bot-icon"><i class="fas fa-user"></i></div><p id="typingTarget"></p>';
+                    displayWindow.appendChild(card);
 
-            status.style.display = 'none';
-            const card = document.createElement('div');
-            card.className = 'صفاء-الروح-response-card';
-            card.innerHTML = '<p id="typingTarget"></p>';
-            displayWindow.appendChild(card);
-            
-            // ✍️ تأثير الكتابة التلقائية
-            let i = 0;
-            const target = card.querySelector('#typingTarget');
-            
-            function typeWriter() {
-                if (i < result.length) {
-                    target.innerHTML += result.charAt(i);
-                    i++;
-                    if (!isUserScrolling) {
-                        displayWindow.scrollTop = displayWindow.scrollHeight;
+                    const target = card.querySelector('#typingTarget');
+                    // تنظيف النص من أي أحرف إنجليزية قد تتسرب برمجياً
+                    let cleanResult = resultText.replace(/[a-zA-Z]/g, '').trim();
+                    
+                    let i = 0;
+                    function typeEffect() {
+                        if (i < cleanResult.length) {
+                            target.innerHTML += cleanResult.charAt(i);
+                            i++;
+                            displayWindow.scrollTop = displayWindow.scrollHeight;
+                            setTimeout(typeEffect, 25); // سرعة الكتابة
+                        }
                     }
-                    setTimeout(typeWriter, 60);
-                }
-            }
-            typeWriter();
+                    typeEffect();
+                }, 8000); // 8000ms تعني 8 ثواني
 
-        } catch (error) {
-            status.style.display = 'none';
-            alert("عذراً، هناك خلل في الاتصال.");
-        }
-    }
-    
-    // 🔤 حماية إدخال العربية
-    const dreamInput = document.getElementById('dreamInput');
-    dreamInput.addEventListener('input', function(e) {
-        const originalValue = this.value;
-        const cleanedValue = originalValue.replace(/[a-zA-Z]/g, '');
-        if (originalValue !== cleanedValue) {
-            this.value = cleanedValue;
-            const btn = document.querySelector('.صفاء-الروح-main-btn');
-            const originalText = btn.textContent;
-            btn.textContent = '⚠️ العربية فقط';
-            btn.style.background = '#e74c3c';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 1500);
-        }
-    });
-    
-    dreamInput.addEventListener('paste', function(e) {        setTimeout(() => {
-            const cleaned = this.value.replace(/[a-zA-Z]/g, '');
-            if (this.value !== cleaned) {
-                this.value = cleaned;
-                alert('تم إزالة الأحرف الإنجليزية. يرجى الكتابة بالعربية فقط.');
+            } catch (e) {
+                typingStatus.style.display = 'none';
+                alert("يرجى المحاولة مرة أخرى، هناك ضغط على الخدمة.");
             }
-        }, 10);
-    });
-
-    // 🚀 بدء التطبيق
-    window.addEventListener('load', () => {
-        checkConnection();
-    });
-</script>
+        }
+    </script>
 </body>
 </html>
