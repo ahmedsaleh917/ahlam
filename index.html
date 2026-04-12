@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#111111">
     <title>صفاء الروح - مستشارك لتفسير الأحلام</title>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
@@ -10,6 +10,7 @@
     <style>
         :root {
             --gold: #FFD700;
+            --bright-gold: #FFE44D;
             --dark-bg: #111;
             --card-bg: #1b1b1b;
             --card-bg-2: #262626;
@@ -17,99 +18,118 @@
             --font-family: 'Almarai', sans-serif;
         }
 
+        /* منع التمرير الخارجي لضمان التمدد الداخلي الذكي */
         html, body {
-            margin: 0; padding: 0; height: 100%;
+            margin: 0; padding: 0; height: 100dvh;
             background: var(--dark-bg); font-family: var(--font-family);
-            overflow: hidden;
+            overflow: hidden; display: flex; flex-direction: column;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         .صفاء-الروح-master-container {
-            display: flex; flex-direction: column; height: 100vh;
-            max-width: 600px; margin: auto; background: var(--dark-bg);
+            display: flex; flex-direction: column; height: 100%;
+            max-width: 600px; margin: auto; width: 100%;
+            background: var(--dark-bg); position: relative;
         }
 
+        /* ترتيب الهيدر */
         .صفاء-الروح-header {
-            padding: 20px; background: linear-gradient(145deg,#1c1c1c,#2a2a2a);
-            border-bottom: 1px solid rgba(255,215,0,0.2); flex-shrink: 0;
+            padding: 15px 20px; background: linear-gradient(180deg,#1c1c1c,#111);
+            border-bottom: 1px solid rgba(255,215,0,0.15); flex-shrink: 0;
+            z-index: 10;
         }
 
-        .profile-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .profile-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; }
         
         .profile-img-container {
-            width: 60px; height: 60px; border-radius: 50%;
+            width: 55px; height: 55px; border-radius: 50%;
             border: 2px solid var(--gold); display: flex;
             align-items: center; justify-content: center; position: relative;
+            box-shadow: 0 0 15px rgba(255,215,0,0.1);
         }
-        .profile-img-container i { color: var(--gold); font-size: 28px; }
+        .profile-img-container i { color: var(--gold); font-size: 24px; }
 
         .online-indicator {
-            position: absolute; bottom: 2px; right: 2px;
+            position: absolute; bottom: 3px; right: 3px;
             width: 12px; height: 12px; background: #2ecc71;
-            border-radius: 50%; border: 2px solid #1a1a1a;
+            border-radius: 50%; border: 2px solid #111;
         }
 
-        .profile-name { color: var(--gold); font-weight: 800; font-size: 20px; text-align: right; }
-        .profile-status { color: #2ecc71; font-size: 12px; text-align: right; }
+        .profile-name { color: var(--gold); font-weight: 800; font-size: 19px; display: block; margin-bottom: 2px; }
+        .profile-status { color: #2ecc71; font-size: 11px; display: block; opacity: 0.9; }
 
+        /* منطقة الرسائل المحسنة */
         .صفاء-الروح-display-window {
-            flex: 1; padding: 15px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 15px;
+            flex: 1; padding: 20px 15px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 18px;
             scroll-behavior: smooth;
         }
 
         .صفاء-الروح-response-card {
             background: linear-gradient(145deg,var(--card-bg),var(--card-bg-2));
-            border-radius: 20px; padding: 15px; max-width: 90%;
-            text-align: right; position: relative; align-self: flex-start;
+            border-radius: 18px; padding: 16px; max-width: 92%;
+            text-align: justify; position: relative; align-self: flex-start;
             border-right: 4px solid var(--gold); color: var(--text-white);
-            animation: msgIn 0.35s ease;
+            animation: msgIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .صفاء-الروح-response-card p { color: var(--text-white); line-height: 1.8; margin: 0; font-size: 15px; }
+        .صفاء-الروح-response-card p { 
+            color: var(--text-white); line-height: 1.8; margin: 0; 
+            font-size: 14.5px; word-spacing: 1px;
+        }
 
         .user-message {
             align-self: flex-end; background: linear-gradient(145deg,#1e3a5f,#27496d);
-            color: #fff; border-left: 4px solid #4aa3ff; border-radius: 20px; 
-            padding: 15px; max-width: 85%; text-align: right;
+            color: #fff; border-left: 4px solid #4aa3ff; border-radius: 18px; 
+            padding: 14px 16px; max-width: 85%; text-align: right;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .bot-icon {
-            position: absolute; top: -12px; left: -12px;
+            position: absolute; top: -10px; left: -10px;
             background: #222; border: 1px solid var(--gold);
-            width: 30px; height: 30px; border-radius: 50%;
+            width: 28px; height: 28px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
         }
-        .bot-icon i { color: var(--gold); font-size: 12px; }
+        .bot-icon i { color: var(--gold); font-size: 11px; }
 
+        /* منطقة التحكم مع التمدد الذكي */
         .صفاء-الروح-control-panel {
-            background: #1a1a1a; padding: 15px;
-            border-top: 1px solid rgba(255,215,0,0.1);
+            background: #1a1a1a; padding: 12px 15px 25px 15px;
+            border-top: 1px solid rgba(255,215,0,0.1); flex-shrink: 0;
         }
 
         #dreamInput {
-            width: 100%; height: 80px; background: #111;
-            border: 1px solid #333; border-radius: 15px;
-            color: #fff; padding: 12px; font-size: 15px;
-            outline: none; resize: none; font-family: var(--font-family); text-align: right;
+            width: 100%; min-height: 50px; max-height: 150px; 
+            background: #0d0d0d; border: 1px solid #333; border-radius: 15px;
+            color: #fff; padding: 12px 15px; font-size: 15px;
+            outline: none; resize: none; font-family: var(--font-family);
+            text-align: right; line-height: 1.5; transition: border 0.3s;
         }
+        #dreamInput:focus { border-color: var(--gold); }
 
+        /* الزر الأصفر الجذاب */
         .صفاء-الروح-main-btn {
-            width: 100%; margin-top: 10px; padding: 14px;
-            border-radius: 15px; border: none; font-weight: bold;
-            background: linear-gradient(145deg,#FFD700,#caa500);
-            cursor: pointer; font-family: var(--font-family); color: #000;
+            width: 100%; margin-top: 12px; padding: 15px;
+            border-radius: 15px; border: none; font-weight: 800;
+            font-size: 16px; text-transform: uppercase; letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--bright-gold), var(--gold));
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+            cursor: pointer; font-family: var(--font-family); color: #111;
+            transition: all 0.2s ease;
         }
+        .صفاء-الروح-main-btn:active { transform: scale(0.98); filter: brightness(0.9); }
 
         .صفاء-الروح-status { 
             color: var(--gold); margin-bottom: 10px; display: none; 
-            gap: 8px; justify-content: center; align-items: center; font-size: 14px; 
+            gap: 8px; justify-content: center; align-items: center; font-size: 13px; font-weight: bold;
         }
         
-        @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .صفاء-الروح-branding { text-align: center; margin-top: 10px; color: rgba(255,255,255,0.3); font-size: 10px; }
-        .صفاء-الروح-branding span { color: var(--gold); }
+        .صفاء-الروح-branding { text-align: center; margin-top: 12px; color: rgba(255,255,255,0.2); font-size: 10px; }
+        .صفاء-الروح-branding span { color: var(--gold); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -118,28 +138,28 @@
         <div class="صفاء-الروح-header">
             <div class="profile-wrapper">
                 <div class="profile-img-container">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-moon"></i>
                     <div class="online-indicator"></div>
                 </div>
                 <div class="profile-info">
                     <span class="profile-name">صفاء الروح</span>
-                    <span class="profile-status">متصل الآن</span>
+                    <span class="profile-status">متصل الآن لتفسير رؤياك</span>
                 </div>
             </div>
         </div>
 
         <div class="صفاء-الروح-display-window" id="sabriDisplay">
             <div class="صفاء-الروح-response-card" style="border-right: 4px solid #444;">
-                <p>مرحباً بك.. أنا مفسرك الخاص. اسرد حلمك هنا بوضوح، وسأقوم بتحليل رموزه بعمق لك.</p>
+                <p>أهلاً بك في رحاب التفسير.. اسرد حلمك بصدق، وسأبحر معك في معانيه بعمق وحكمة.</p>
             </div>
         </div>
 
         <div class="صفاء-الروح-control-panel">
             <div id="sabriTyping" class="صفاء-الروح-status">
-                <i class="fas fa-pen-fancy fa-spin"></i> جاري الكتابة...
+                <i class="fas fa-pen-nib fa-spin"></i> صفاء الروح يتأمل في الرموز...
             </div>
-            <textarea id="dreamInput" placeholder="اكتب حلمك هنا بعمق..."></textarea>
-            <button class="صفاء-al-روح-main-btn" onclick="startInterpretation()">إرسال الحلم للتفسير</button>
+            <textarea id="dreamInput" placeholder="اكتب حلمك هنا بعمق..." oninput="autoExpand(this)"></textarea>
+            <button class="صفاء-الروح-main-btn" onclick="startInterpretation()">إرسال الحلم للتفسير</button>
             <div class="صفاء-الروح-branding">هوية بصرية وبرمجة <span>sabriFX &copy; 2026</span></div>
         </div>
     </div>
@@ -149,40 +169,45 @@
         const dreamInput = document.getElementById('dreamInput');
         const typingStatus = document.getElementById('sabriTyping');
 
+        // ميزة التمدد الذكي لصندوق النص
+        function autoExpand(field) {
+            field.style.height = 'inherit';
+            const height = field.scrollHeight;
+            field.style.height = height + 'px';
+        }
+
         async function startInterpretation() {
             const text = dreamInput.value.trim();
             if (!text) return;
 
+            // عرض رسالة المستخدم
             const userCard = document.createElement('div');
             userCard.className = 'user-message';
             userCard.innerHTML = `<p>${text}</p>`;
             displayWindow.appendChild(userCard);
             
+            // إعادة ضبط الحقل بعد الإرسال
             dreamInput.value = '';
+            dreamInput.style.height = '50px';
             displayWindow.scrollTop = displayWindow.scrollHeight;
             typingStatus.style.display = 'flex';
 
             try {
-                // تحديد الجنس بناءً على الكلمات المفتاحية
-                const gender = (text.match(/امي|اختي|بنت|شافت|رأت|زوجتي/)) ? "يا أختي" : "يا أخي";
+                const gender = (text.match(/امي|اختي|بنت|شافت|رأت|زوجتي|امرأة/)) ? "يا أختي" : "يا أخي";
                 
-                // البرومبت المطور للتعامل مع اللهجات والذكاء الفطني
-                const systemPrompt = `أنت "صفاء الروح"، مفسر أحلام ذكي جداً وفطن. مهمتك استخلاص الرموز من كلام المستخدم مهما اختلفت طريقته في السرد (حلمت، شفت، رأيت، رأت، شاف، إلخ). استوعب اللهجات العامية وحللها بعمق. 
-القواعد:
-1- الرد بالعربية الفصحى فقط.
-2- ابدأ بـ 'مرحبا ${gender}'.
-3- قدم 4 نقاط: (1. التفسير الرمزي، 2. المعنى الواقعي، 3. نوع الرسالة، 4. نصيحة).
-4- ممنوع استخدام الإنجليزية.`;
+                const systemPrompt = `أنت "صفاء الروح"، مفسر أحلام عالم وعميق. حلل الرموز بذكاء فائق مهما كانت لهجة السرد وميز بين الرجل والانثى من خلال سردهم وتعامل وفق ذالك باحترام وهذه بعض الكلمات يبدا بها السرد (حلمت، شفت، رأيت...). 
+                الضوابط: 1- العربية الفصحى فقط. 2- ابدأ بـ 'مرحبا ${gender}'. 3- الرد في 4 نقاط مرتبة (الرمز، الواقع، الرسالة، النصيحة). 4- لا إنجليزية أبداً.`;
                 
                 const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(systemPrompt + " الحلم: " + text)}?model=openai`);
                 const resultText = await response.text();
 
+                // مدة الانتظار 8 ثوانٍ كما طلبت
                 setTimeout(() => {
                     typingStatus.style.display = 'none';
                     
                     const card = document.createElement('div');
                     card.className = 'صفاء-الروح-response-card';
-                    card.innerHTML = '<div class="bot-icon"><i class="fas fa-user"></i></div><p id="typingTarget"></p>';
+                    card.innerHTML = '<div class="bot-icon"><i class="fas fa-sparkles"></i></div><p id="typingTarget"></p>';
                     displayWindow.appendChild(card);
 
                     const target = card.querySelector('#typingTarget');
@@ -194,7 +219,7 @@
                             target.innerHTML += cleanResult.charAt(i);
                             i++;
                             displayWindow.scrollTop = displayWindow.scrollHeight;
-                            setTimeout(typeEffect, 30);
+                            setTimeout(typeEffect, 35); // سرعة الكتابة متزنة
                         }
                     }
                     typeEffect();
@@ -202,9 +227,17 @@
 
             } catch (e) {
                 typingStatus.style.display = 'none';
-                alert("حدث خطأ، حاول مجدداً.");
+                alert("حدث ضغط على الخادم، يرجى المحاولة بعد لحظات.");
             }
         }
+
+        // دعم الإرسال عبر Enter
+        dreamInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                startInterpretation();
+            }
+        });
     </script>
 </body>
 </html>
